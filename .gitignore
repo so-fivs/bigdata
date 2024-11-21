@@ -3,3 +3,5 @@ env/
 _pycache_/
 *.pyc
 *.pyo
+vockey.pem
+
