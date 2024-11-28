@@ -1,7 +1,7 @@
 {
     "dev": {
-        "app_function": "lambda3.lambda_run",  # Función Lambda que ejecutará el Crawler de Glue
-        "aws_region": "us-east-1",  # Región de AWS
+        "app_function": "lambda3.lambda_run",  // Asegúrate de que esta sea la ruta correcta a tu función Lambda
+        "aws_region": "us-east-1",
         "exclude": [
             "boto3",
             "dateutil",
@@ -9,49 +9,22 @@
             "s3transfer",
             "concurrent"
         ],
-        "profile_name": "default",  # Perfil AWS
-        "project_name": "parcial-crawler",  # Nombre del proyecto
-        "runtime": "python3.9",  # Versión de Python
-        "s3_bucket": "zappa-ak7w2xy9r2",  # Bucket S3 donde se almacenan los artefactos de Lambda
-        "keep_warm": false,  # No mantener caliente el Lambda
-        "apigateway_enabled": false,  # No se necesita API Gateway
-        "manage_roles": false,  # No gestionamos roles automáticamente
-        "role_name": "LabRole",  # Rol IAM que usará Lambda
-        "iam_role": {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Action": [
-                        "logs:*",  # Permisos para CloudWatch Logs
-                        "glue:StartCrawler",  # Permiso para iniciar el Crawler de Glue
-                        "s3:GetObject"  # Permiso para acceder a objetos en S3
-                    ],
-                    "Resource": "*"
-                }
-            ]
-        },
+        "profile_name": "default",
+        "project_name": "parcial-crawler",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-ak7w2xy9r2",
+        "keep_warm": false,
+        "apigateway_enabled": false,
+        "manage_roles": false,  // No gestionaremos roles automáticamente
+        "role_name": "LabRole",  // Nombre del rol IAM que debe tener permisos suficientes
         "environment_variables": {
-            "AWS_REGION": "us-east-1",  # Región de AWS
             "CRAWLER_NAME": "headlinesfinal"  # Nombre del Crawler en Glue
         },
-        "timeout_seconds": 300,  # Tiempo máximo de ejecución de la Lambda (en segundos)
-        "memory_size": 1024,  # Memoria asignada para la ejecución
-        "cloudwatch_log_level": "DEBUG",  # Nivel de logs para CloudWatch
         "events": [
             {
-        "function": "lambda3.lambda_run",  # Función Lambda que debe ejecutarse
-        "event_source": {
-            "arn": "arn:aws:s3:::parcialll",  # ARN del bucket de S3
-            "events": ["s3:ObjectCreated:*"],  # Los eventos que dispararán la Lambda (creación de objetos)
-            "filters": [
-                {
-                    "Prefix": "headlines/raw/",  # Prefijo que debe tener el archivo cargado (carpeta en S3)
-                    "Suffix": ".html"  # Sufijo que debe tener el archivo cargado (ej. solo archivos .html)
-                }
-            ]
-        }
+                "function": "lambda3.lambda_run",  // La función Lambda que quieres ejecutar
+                "expression": "cron(0/5 * * * ? *)"// Ejecutar cada 5 minutos
             }
-]
+        ]
     }
 }
