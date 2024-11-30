@@ -1,6 +1,6 @@
 {
     "dev": {
-        "app_function": "lambda2.lambda_recive",
+        "app_function": "lambda2.process_data",
         "aws_region": "us-east-1",
         "exclude": [
             "boto3",
@@ -19,7 +19,7 @@
         "role_name": "LabRole",
         "events": [
             {
-                "function": "lambda2.lambda_recive",
+                "function": "lambda2.process_data",
                 "event_source": {
                     "arn": "arn:aws:s3:::parcialll",
                     "events": ["s3:ObjectCreated:*"],
