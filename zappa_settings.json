@@ -1,6 +1,6 @@
 {
     "dev": {
-        "app_function": "lambda2.lambda_recivea",
+        "app_function": "lambda2.lambda_recive",
         "aws_region": "us-east-1",
         "exclude": [
             "boto3",

@@ -6,7 +6,7 @@ import os
 # URL de los periódicos
 URLS = {
     "el_tiempo": "https://www.eltiempo.com/",
-    "el_espectador": "https://www.elespectador.com/",
+    "el_espectador": "https://www.portafolio.co/",
 }
 
 # Configuración del bucket de S3
